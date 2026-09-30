@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+ <title>EspSoup</title>
+ <!-- Scooping one clean signal (green peak) out of the frequency soup (noisy spectrum); steam = rising waves -->
+ <defs>
+  <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8c42"/><stop offset="1" stop-color="#d9480f"/></linearGradient>
+  <radialGradient id="soup" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#ffc861"/><stop offset="1" stop-color="#f08c00"/></radialGradient>
+  <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8f9fa"/><stop offset="1" stop-color="#8f9ba6"/></linearGradient>
+  <linearGradient id="steam" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4dabf7" stop-opacity=".9"/><stop offset="1" stop-color="#b197fc" stop-opacity="0"/></linearGradient>
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <clipPath id="soupClip"><ellipse cx="256" cy="286" rx="166" ry="30"/></clipPath>
+ </defs>
+ <g fill="none" stroke="url(#steam)" stroke-width="11" stroke-linecap="round">
+  <path d="M150 238 q-16 -26 0 -52 q16 -26 0 -52 q-16 -26 0 -52"/>
+  <path d="M372 238 q-16 -26 0 -52 q16 -26 0 -52"/>
+ </g>
+ <path d="M82 286 H430 C430 382 356 438 256 438 C156 438 82 382 82 286 Z" fill="url(#bowl)"/>
+ <path d="M206 434 h100 l-8 26 h-84 z" fill="#c2410c"/>
+ <path d="M104 318 C120 380 170 410 220 418" fill="none" stroke="#ffffff40" stroke-width="10" stroke-linecap="round"/>
+ <ellipse cx="256" cy="286" rx="174" ry="36" fill="#b8430a"/>
+ <ellipse cx="256" cy="286" rx="166" ry="30" fill="url(#soup)"/>
+ <g clip-path="url(#soupClip)"><polyline fill="none" stroke="#fff3bf" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"
+  points="90,292 104,289 116,293 128,288 140,291 150,284 158,276 166,285 176,292 190,289 204,293 218,290 232,294 246,291 262,293 280,289 296,292 312,288 322,282 330,272 338,283 348,291 362,289 376,293 392,290 406,292 422,289"/></g>
+ <circle cx="226" cy="276" r="6" fill="#ffc861"/><circle cx="246" cy="262" r="4.5" fill="#ffc861"/>
+ <path d="M296 214 L440 58" stroke="#5c6670" stroke-width="30" stroke-linecap="round"/>
+ <path d="M296 214 L440 58" stroke="url(#steel)" stroke-width="22" stroke-linecap="round"/>
+ <circle cx="436" cy="62" r="7" fill="#5c6670"/>
+ <path d="M176 214 A62 50 0 0 0 300 214 Z" fill="url(#steel)" stroke="#5c6670" stroke-width="6" stroke-linejoin="round"/>
+ <ellipse cx="238" cy="214" rx="62" ry="11" fill="#3b4750"/>
+ <polyline filter="url(#glow)" fill="none" stroke="#69db7c" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"
+  points="188,213 208,212 222,208 230,194 238,150 246,194 254,208 268,212 288,213"/>
+</svg>
