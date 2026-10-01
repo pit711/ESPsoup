@@ -8,6 +8,11 @@ A receive-only radio scanner app for the ESP32-C5 — Android and desktop browse
 
 <p align="center"><i>🍲 Work in progress — the source code is not published yet.</i></p>
 
+<p align="center">
+  <a href="https://ko-fi.com/711it"><img src="https://img.shields.io/badge/Ko--fi-support-ff5e5b?logo=ko-fi&logoColor=white" alt="Ko-fi"></a>
+  <a href="https://paypal.me/711IT"><img src="https://img.shields.io/badge/PayPal-tip-00457C?logo=paypal&logoColor=white" alt="PayPal"></a>
+</p>
+
 ---
 
 The air around you is a soup of radio signals. ESPsoup turns a cheap ESP32-C5 board, plugged into your phone or PC by USB,
@@ -34,6 +39,13 @@ into a pocket spectrum scanner for **1–6 GHz**. It shows what's cooking and sc
 - **Recipes:** decoders for BLE, Zigbee, nRF24/Hoymiles, drone Remote ID, Wi-Fi beacons, LTE/5G cell info, DECT, ADS-B and more.
 - **Pantry:** frequency calibration against mobile base stations, MQTT export to Home Assistant, and a firmware flasher.
 - **Receive only.** ESPsoup never transmits, and it only decodes public broadcast information.
+
+## Support
+
+ESPsoup is a hobby project. If you like it, a small tip keeps the soup cooking:
+
+- ☕ **Ko-fi:** https://ko-fi.com/711it
+- 💸 **PayPal:** https://paypal.me/711IT
 
 ## Status
 
