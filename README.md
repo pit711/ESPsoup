@@ -174,6 +174,9 @@ Any **ESP32-C5** board works — it is the only ESP32 with the 5 GHz radio ESPso
 <sub>Affiliate links (ad). As an Amazon Associate I earn from qualifying purchases — it costs you nothing extra and keeps the soup cooking.
 Product photos come from Amazon.</sub>
 
+**Multi-TV:** one board shows one analog channel at a time, so it's one board per channel — 8 boards for a whole band (e.g. Raceband R1–R8).
+Tested with 2 boards, 3 are in testing, more not yet. Kit calculator (boards, antennas, cables, USB hub): https://espsoup.com/#multi-tv
+
 Also needed:
 - A USB-C data cable — plug into the board's **native USB** port, not the UART bridge port (CH340 etc.), which is too slow. On Android, a USB-OTG cable or adapter that carries data.
 - The ESPsoup firmware 0.7.1 — the app installs it for you, see [Firmware](#firmware).
