@@ -6,7 +6,7 @@
 <p align="center"><b>Scoop signals from the frequency soup.</b><br>
 A receive-only radio scanner app for the ESP32-C5 — Android, Windows and the browser.</p>
 
-<p align="center"><i>🍲 Private preview — not released yet.</i></p>
+<p align="center"><i>🍲 Preview · app 0.12.2 · the web app is live, Android and Windows apps are coming soon.</i></p>
 
 <p align="center">
   <a href="https://app.espsoup.com/"><img src="https://img.shields.io/badge/web%20app-app.espsoup.com-e8590c" alt="Web app"></a>
@@ -19,65 +19,152 @@ A receive-only radio scanner app for the ESP32-C5 — Android, Windows and the b
 
 The air around you is a soup of radio signals. ESPsoup turns a cheap **ESP32-C5** board, plugged into your phone or PC by USB,
 into a pocket spectrum scanner for the **2.4 GHz and 5 GHz bands**. It shows what's cooking and scoops out whatever it can decode —
-Bluetooth, Wi-Fi, Zigbee, Thread, drones, mobile cells, FPV video and more. Everything is decoded locally on your device, and ESPsoup never transmits.
+Bluetooth, Wi-Fi, Zigbee, Thread, drones, mobile cells, cars (ITS-G5) and live analog FPV video on its own little TV.
+Everything is decoded locally on your device, and ESPsoup never transmits.
 
-## Screenshots
+## Four tabs, two or three taps
 
-| Kitchen | Bluetooth + tracker warning | Drone Remote ID |
-|---|---|---|
-| <img src="assets/screenshots/kitchen.png" width="250"> | <img src="assets/screenshots/ble-tracker.png" width="250"> | <img src="assets/screenshots/remote-id.png" width="250"> |
-| *“Stir the pot” scans every recipe into one dashboard* | *Sensors, beacons and an AirTag “following you?” warning* | *Drone serial number, position, height, speed* |
+The 0.12 interface has four areas. Every function is at most two or three taps away.
 
-| Find (hot/cold) | Mobile cells | Signal classifier |
-|---|---|---|
-| <img src="assets/screenshots/find.png" width="250"> | <img src="assets/screenshots/lte-cell.png" width="250"> | <img src="assets/screenshots/classify.png" width="250"> |
-| *Walk up to one specific device, matched by its ID* | *LTE / 5G cell ID, bandwidth, signal quality* | *“What is this?” — LoRa, FSK, OFDM, radar …* |
-
-| Analog FPV video, assembled from snapshots | Live video (preview of an upcoming feature) |
+| Tab | What's in it |
 |---|---|
-| <img src="assets/screenshots/fpv-fullscreen.png" width="400"> | <img src="assets/screenshots/live-video.gif" width="300"> |
-| *5.8 GHz FPV test picture in fullscreen* | *FM video demodulated on the ESP32 itself, ~25 frames/s* |
+| **Scan** | Type a signal type (*ELRS*, *AirTag*, *HDZero* …) and search it in one tap — or tap ingredients and hit **Search ingredients (n)**, or just **Search everything**. Every find has **Find** and ▶. |
+| **Spectrum** | Live spectrum and waterfall. Type a frequency like in SDR software — `2437`, `5.8G`, `2437.5`. Frequencies the chip can't reach are marked, with the reason and the nearest receivable one. |
+| **Tools** | **TV**, Panorama (live, with its own start/stop), Wi-Fi channels (now and over 24 h), Find on any frequency with a GPS heatmap, Burst catcher, Map, Recordings, Identify. |
+| **Device** | Firmware flasher (backup first, every write verified), calibration, second board, notifications, MQTT export, settings. |
 
-<sub>Phone screenshots from a Redmi with an ESP32-C5 on USB-OTG. Test signals came from an ADALM-PLUTO signal generator;
-device addresses of real neighbours are not shown.</sub>
+### Scan
 
-## What works today
+| Ingredients | Signal-type search | Finds |
+|---|---|---|
+| <img src="assets/screenshots/scan-ingredients.png" width="250"> | <img src="assets/screenshots/scan-search-elrs.png" width="250"> | <img src="assets/screenshots/scan-finds.png" width="250"> |
+| *Tap ingredients → “Search ingredients (3)”* | *Type “ELRS” — band, classifier, one-tap search* | *Wi-Fi, Bluetooth, trackers — each with Find* |
 
-Verified over the air with test signals and real devices. Further formats listed in brackets are built in and tested with reference data.
+### Spectrum and Tools
 
-| | Signal | Frequency | What you see |
+| Type a frequency | Honest tuning | Panorama |
+|---|---|---|
+| <img src="assets/screenshots/freq-typing.png" width="250"> | <img src="assets/screenshots/freq-gap.png" width="250"> | <img src="assets/screenshots/pano-all.png" width="250"> |
+| *`5.8G` → 5800 MHz, UNII-3* | *3500 MHz is in the chip's gap — marked, with the nearest frequency* | *Live sweep over everything receivable* |
+
+| Tools | Find (hot/cold) | Wi-Fi channels |
+|---|---|---|
+| <img src="assets/screenshots/tools-tv.png" width="250"> | <img src="assets/screenshots/find.png" width="250"> | <img src="assets/screenshots/wifi-channels.png" width="250"> |
+| *TV, Panorama, Find, Burst catcher, Map, Recordings* | *Walk around — the pot gets hotter as you get closer* | *Occupancy now and over 24 h* |
+
+| Identify | Light theme | Measuring tip |
+|---|---|---|
+| <img src="assets/screenshots/identify.png" width="250"> | <img src="assets/screenshots/light-scan.png" width="250"> | <img src="assets/screenshots/airplane-hint.png" width="250"> |
+| *“What is this?” — classifier on any frequency* | *Light and dark* | *Airplane mode before measuring* |
+
+## 📺 ESPsoup TV
+
+**Tools → TV** is an analog video receiver. Pick a channel table — **Raceband, Fatshark, Boscam A / B / E, Lowband, 2.4 GHz AV** —
+or type any frequency. The picture starts at once (snow when there's nothing on air), with PAL / NTSC / auto,
+channel ◀ ▶, seek, an auto cycle with adjustable interval and *stop on a picture*, and fullscreen.
+
+| Raceband R5 | No signal = snow | Any frequency |
+|---|---|---|
+| <img src="assets/screenshots/tv-r5.png" width="250"> | <img src="assets/screenshots/tv-snow.png" width="250"> | <img src="assets/screenshots/tv-free-5800.png" width="250"> |
+| *5806 MHz, PAL, ~25 fps* | *Picture right away, even without a sender* | *5800 MHz typed in, NTSC detected* |
+
+| 2.4 GHz AV sender | Switching channels | Colour (rough) |
+|---|---|---|
+| <img src="assets/screenshots/tv-av-2414.png" width="250"> | <img src="assets/screenshots/tv-switch.gif" width="250"> | <img src="assets/screenshots/tv-colour-pal.png" width="250"> |
+| *AV1, 2414 MHz* | *R5 → R6 (empty) → R5* | *PAL colour bars, ESPsoup firmware* |
+
+| Colour in fullscreen | Live video, 2.4 GHz AV |
+|---|---|
+| <img src="assets/screenshots/tv-colour-fullscreen.jpg" width="400"> | <img src="assets/screenshots/live-video.gif" width="400"> |
+| *Rough PAL colour — NTSC works too* | *2434 MHz, demodulated on the ESP32 itself* |
+
+<img src="assets/screenshots/tv-52-channels.jpg" width="760" alt="Grid of 52 TV screenshots, one per receivable FPV and 2.4 GHz AV channel, each showing the ESPsoup test picture">
+
+*All 52 receivable channels with a picture: Raceband, Fatshark, Boscam A/B/E, Lowband (5362–5945 MHz) and 2.4 GHz AV (2414–2468 MHz).*
+
+**Tested with a lab signal generator:** 52 of 52 receivable channels gave a picture, about **25 frames/s** and **~7,900 lines/s**.
+The ESP32 demodulates the video itself — this needs the upcoming **ESPsoup firmware**; with the stock ESP-SDR firmware the picture builds up
+slowly from snapshots, on channels up to 5.75 GHz. Rough colour (PAL and NTSC) also comes with the ESPsoup firmware.
+The 1.2/1.3 GHz FPV band can't be received by the ESP32-C5, and digital systems (DJI, HDZero, Walksnail) are only recognised, without a picture.
+
+<sub>Phone screenshots from an Android phone with an ESP32-C5 on USB-OTG. Test pictures came from an ADALM-PLUTO signal generator;
+addresses of real neighbours are masked, and no map or heatmap of a real location is shown.</sub>
+
+## What works, what partly works, what doesn't
+
+The ESP32-C5 is a Wi-Fi chip, not a lab SDR. This is what ESPsoup really does with it — tested on real air and,
+where there was nothing on air to test with (video, RC links, ITS-G5), with an ADALM-PLUTO signal generator (October 2026).
+
+✅ works · ◐ partly (recognised, but not fully decoded or not reliable yet) · ❌ not possible · **ᶠ** needs the upcoming ESPsoup firmware (the stock ESP-SDR firmware does less)
+
+| | Signal / feature | Frequency | Notes |
 |---|---|---|---|
-| ✅ | Bluetooth LE advertising | 2402 / 2426 / 2480 MHz | names, addresses, manufacturer |
-| ✅ | BLE sensors & beacons | 2402 / 2426 / 2480 MHz | BTHome (°C, %RH, battery), iBeacon (+ Xiaomi, Govee, Ruuvi, Eddystone) |
-| ✅ | Tracker warning | 2402 / 2426 / 2480 MHz | AirTag / Find My “separated from owner” (+ SmartTag, Tile, Google) — local only |
-| ✅ | BLE 2M · extended advertising | 2404–2478 MHz | packets on the secondary channels |
-| ✅ | Drone Remote ID | 2402–2480 · 5745 MHz | via Bluetooth, Wi-Fi beacon, Wi-Fi NAN and legacy DJI beacons |
-| ✅ | Wi-Fi beacons (802.11b and g) | 2412–2472 MHz | network name, access point, channel, data rate |
-| ✅ | Wi-Fi extras | 2412–2472 MHz | ESP-NOW devices, anonymous count of searching phones, deauth-attack alarm |
-| ✅ | Zigbee / 802.15.4 | 2405–2480 MHz | network, addresses, Green Power switches |
-| ✅ | nRF24 · Hoymiles solar inverters | 2403–2480 MHz | serial number, messages |
-| ✅ | ANT+ | 2457 MHz | heart-rate sensors |
-| ✅ | LTE / 5G NR cells | 2130–2170 · 2620–2690 MHz | cell ID, bandwidth, operator |
-| ✅ | Analog FPV video (PAL / NTSC) | 5650–5745 MHz | channel, standard, fullscreen still picture |
-| ✅ | Analog camera finder · microwave oven | 2414–2470 MHz | wireless AV cameras, oven running |
-| ✅ | Signal classifier | 2.4 GHz · 5 GHz | LoRa (ExpressLRS, Tracer), Wi-Fi OFDM, DJI video link & DroneID, DVB-T video links, CW / AM / FM / SSB, analog video |
-| ✅ | Find | the signal's frequency | hot/cold finder on every result, following one device by its ID |
-| ✅ | Spectrum & waterfall | 2130–2730 · 4790–5745 MHz | live view, panorama sweep, Wi-Fi channel view, 24 h band log |
-| ◐ | RC links | 2400–2480 MHz | FrSky, FlySky, ELRS FLRC, Spektrum DSMX — detected, exact type not yet reliable |
-| ◐ | HDZero / Walksnail, pulsed radar | 5.6–5.9 GHz | detected, type still being tuned |
-| ◐ | BLE Coded (long range), Auracast, Thread / Matter | 2.4 GHz | decoders built, packets often longer than one capture |
+| | **Spectrum and tools** | | |
+| ✅ | Live spectrum, waterfall, frequency entry | 2.13–2.73 · 4.79–5.75 GHz | Up to 80 MHz wide; unreachable frequencies are refused with the reason |
+| ✅ᶠ | Spectrum above 5.75 GHz | 5.75–5.99 GHz | Upper 5.8 GHz band and ITS-G5 |
+| ✅ | Panorama live, own start/stop | any receivable range | About 15 sweeps/s over 2.4 GHz; gaps are skipped |
+| ✅ | Find (hot/cold) with GPS heatmap | any receivable frequency | Usable over about 25–30 dB; the heatmap stays on your device |
+| ✅ᶠ | Gap-free reception, burst catcher | same ranges | Stock ESP-SDR: snapshots with short gaps |
+| | **Bluetooth** | | |
+| ✅ | BLE advertising: names, sensors (BTHome, Xiaomi, Govee, Ruuvi), iBeacon, Eddystone | 2402 · 2426 · 2480 MHz | |
+| ✅ | AirTag and tracker warning | 2.4 GHz | AirTag, SmartTag, Tile, Google trackers — warns if one keeps showing up around you |
+| ✅ | BLE 2M and extended advertising | 2.4 GHz | |
+| ✅ᶠ | Bluetooth packet catcher, 60–120 packets/s | 2.4 GHz | Demodulated on the chip; stock ESP-SDR: fewer packets, from snapshots |
+| ◐ | BLE Coded (Long Range) | 2.4 GHz | Seen in the spectrum, not decoded yet |
+| ◐ | Bluetooth Classic | 2.4 GHz | Recognised by its hopping pattern, not decoded |
+| | **Wi-Fi and cars** | | |
+| ✅ | Wi-Fi 802.11b/g/a (incl. 5 GHz OFDM): network names from beacons | 2.4 · 5 GHz | 5 GHz channels above 5.75 GHz only with the ESPsoup firmware |
+| ✅ | ESP-NOW, searching phones (anonymous count), deauth alarm | 2.4 GHz | |
+| ✅ | Wi-Fi channel occupancy | 2.4 · 5 GHz | Now and over 24 hours |
+| ✅ᶠ | ITS-G5 / 802.11p (car-to-car V2X) | 5.855–5.925 GHz | Outside the stock ESP-SDR range |
+| | **Smart home and sensors** | | |
+| ✅ | Zigbee, Zigbee Green Power, Thread (802.15.4) | 2405–2480 MHz | |
+| ✅ | nRF24, Hoymiles solar inverters | 2.4 GHz | |
+| ✅ | ANT+ fitness sensors | 2457 MHz | |
+| ✅ | Microwave oven | ≈ 2.45 GHz | Recognised while it runs |
+| | **Drones and remote controls** | | |
+| ✅ | Drone Remote ID (Bluetooth, Wi-Fi beacon, Wi-Fi NAN) | 2.4 · 5 GHz | Drone and pilot position on the map |
+| ◐ | RC links: ExpressLRS, FLRC, Ghost, Tracer, FrSky, FlySky, DSMX, LoRa 2.4 | 2.4 GHz | Recognised by the classifier; exact link type sometimes unsure; control data not decoded |
+| ◐ | DJI drones (OcuSync, DroneID) | 2.4 · 5.8 GHz | Video link recognised; DroneID not detected over the air yet |
+| | **Video** | | |
+| ✅ᶠ | ESPsoup TV: Raceband, Fatshark, Boscam A/B/E, Lowband, 2.4 GHz AV or any frequency | 5362–5945 · 2414–2468 MHz | 52 of 52 channels with a picture, ~25 fps; seek, auto cycle, fullscreen |
+| ◐ᶠ | Colour in the TV picture (PAL / NTSC) | same | Rough colour; black and white is the reliable default |
+| ✅ᶠ | Analog FPV video and 2.4 GHz wireless cameras, live | 5.36–5.95 · 2.41–2.47 GHz | Stock ESP-SDR: picture builds up slowly, channels up to 5.75 GHz |
+| ◐ | Digital video: HDZero, Walksnail, OcuSync, DVB-T senders | 2.4 · 5.8 GHz | Recognised, but no picture — digital video is too much for the ESP32 |
+| | **Mobile network and the rest** | | |
+| ◐ | LTE / 5G NR cell identities | bands 1 and 7 (2.11–2.17 · 2.62–2.69 GHz) | Depends on your surroundings; also calibrates the board's crystal |
+| ✅ | Radar, FMCW, CW and NBFM carriers | 2.4 · 5 GHz | Recognised by their shape; nothing to decode |
+| | **Not possible with the ESP32-C5** | | |
+| ❌ | FM, DAB+, 433/868 MHz sensors, LoRa below 1 GHz, 1.2/1.3 GHz FPV, ADS-B, GPS, DECT, LTE bands 3/8/20 | below 2.1 GHz | The chip can't tune there |
+| ❌ | 5G n78 (3.5 GHz), C-band | 2.75–4.79 GHz | A gap in the tuning range |
+| ❌ | Wi-Fi 6E, 10 GHz, QO-100 | above 6 GHz | The radio ends below 6 GHz |
+| ❌ | Calls, audio, message contents | – | By design: ESPsoup only shows public broadcast information |
 
-**Not possible with this chip:** anything below about 2.1 GHz (ADS-B 1090 MHz, GPS, DECT, FM radio, 433/868 MHz sensors, LoRa 868),
-2.75–4.79 GHz (5G n78 at 3.5 GHz), and anything above 6 GHz. Following frequency-hopping links, listening to calls
-and reading encrypted content are not possible either — by design.
+**Bottom line:** a good 2.4/5 GHz scanner and decoder for about **2.13–2.73 GHz and 4.79–5.75 GHz** with the original ESP-SDR firmware,
+**up to 5.99 GHz** with the ESPsoup firmware — with live analog video, drone Remote ID and LTE/5G cell identities. It is not a broadband SDR.
+
+> **Measuring?** Put your phone in **airplane mode**, or at least switch off its Wi-Fi and Bluetooth — they transmit a few centimetres
+> from the ESP32 and would be the loudest ingredient in the soup. USB-OTG and GPS keep working. The app reminds you.
+
+## Firmware
+
+ESPsoup runs on the open-source **ESP-SDR firmware by ESPARGOS** (GPL-3.0), which turns the ESP32-C5's Wi-Fi radio into an I/Q receiver.
+Flash it once with the ESPARGOS web installer, or from **Device → Firmware** in ESPsoup: the flasher downloads it from ESPARGOS,
+backs up the board first and verifies every write.
+
+The **ESPsoup firmware** is based on ESP-SDR and will also be open source under GPL-3.0 — release coming soon. It adds:
+
+- **gap-free reception** instead of snapshots (burst catcher, packet catcher),
+- the **5.9 GHz extension** up to 5990 MHz (upper 5.8 GHz band, ITS-G5),
+- **video and Bluetooth demodulation on the chip** — that's what makes the live TV at ~25 frames/s possible.
 
 ## Coming next
 
-- **Live analog video at ~25 frames/s** and a **continuous Bluetooth packet catcher** (about 100× more packets than today),
-  both demodulated directly on the ESP32 — working in the lab, release pending.
-- **5.8 GHz upper band and ITS-G5 (5.9 GHz)** reception on supported boards.
-- Better identification of RC links (ExpressLRS, FrSky, FlySky, Ghost), Nordic 2 Mbit devices and Bluetooth Classic.
-- Public downloads of the Android and Windows apps. Today ESPsoup runs as a web app in Chrome / Edge.
+- **ESPsoup firmware** release (open source, GPL-3.0).
+- **Android app (APK)** and **Windows app** — coming soon. Today ESPsoup runs as a web app in Chrome / Edge at [app.espsoup.com](https://app.espsoup.com/) (0.12.2).
+- **Dual TV / diversity** with two boards — experimental, tested on the same channel so far.
+- Better colour in the TV picture.
+- Decoding BLE Long Range and DJI DroneID, surer identification of RC links.
 
 ## What you need
 
@@ -93,8 +180,9 @@ Any **ESP32-C5** board works — it is the only ESP32 with the 5 GHz radio ESPso
 Product photos come from Amazon.</sub>
 
 Also needed:
-- A USB-C data cable — plug into the board's **native USB** port. On Android, a USB-OTG cable or adapter.
-- The free **ESP-SDR firmware by ESPARGOS**, flashed once with their web installer or from ESPsoup's Pantry.
+- A USB-C data cable — plug into the board's **native USB** port, not the UART bridge port (CH340 etc.), which is too slow. On Android, a USB-OTG cable or adapter that carries data.
+- The ESP-SDR firmware (free, see [Firmware](#firmware)) — or the ESPsoup firmware once it is released.
+- On the PC: Chrome, Edge or another Chromium browser (Web Serial).
 
 ## Support
 
@@ -105,7 +193,9 @@ ESPsoup is a hobby project. If you like it, a small tip pays for test boards, an
 
 ## Status
 
-Private preview. Nothing is released yet, and a license has not been chosen.
+Preview. The web app at [app.espsoup.com](https://app.espsoup.com/) is free to use (0.12.2); the Android and Windows apps are not public yet.
+A license for the ESPsoup app has not been chosen yet. The firmware side is GPL-3.0: ESP-SDR by ESPARGOS is GPL-3.0,
+and the ESPsoup firmware, being based on it, will be published under GPL-3.0 as well.
 
 ESPsoup only receives. Rules on receiving radio signals and on what you may do with the information differ between countries — use it responsibly.
 ESPsoup is an independent project. It is not affiliated with Espressif Systems or with the ESPARGOS / ESP-SDR project. ESP32 is a trademark of Espressif Systems.
