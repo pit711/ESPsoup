@@ -6,7 +6,7 @@
 <p align="center"><b>Scoop signals from the frequency soup.</b><br>
 A receive-only radio scanner app for the ESP32-C5 — Android, Windows and the browser.</p>
 
-<p align="center"><i>🍲 Preview · app 0.12.2 · the web app is live, Android and Windows apps are coming soon.</i></p>
+<p align="center"><i>🍲 Public beta 0.1 (app 0.12.2) · <a href="https://github.com/pit711/ESPsoup/releases/latest">Android APK</a> · <a href="https://app.espsoup.com/">web app</a> · Windows app coming soon.</i></p>
 
 <p align="center">
   <a href="https://app.espsoup.com/"><img src="https://img.shields.io/badge/web%20app-app.espsoup.com-e8590c" alt="Web app"></a>
@@ -148,11 +148,11 @@ where there was nothing on air to test with (video, RC links, ITS-G5), with an A
 
 ## Firmware
 
-ESPsoup runs on the open-source **ESP-SDR firmware by ESPARGOS** (GPL-3.0), which turns the ESP32-C5's Wi-Fi radio into an I/Q receiver.
-Flash it once with the ESPARGOS web installer, or from **Device → Firmware** in ESPsoup: the flasher downloads it from ESPARGOS,
-backs up the board first and verifies every write.
+ESPsoup runs on the open-source **[ESP-SDR firmware by ESPARGOS](https://github.com/ESPARGOS/esp-sdr)** (GPL-3.0), which turns the ESP32-C5's Wi-Fi radio into an I/Q receiver.
 
-The **ESPsoup firmware** is based on ESP-SDR and will also be open source under GPL-3.0 — release coming soon. It adds:
+The **[ESPsoup firmware](https://github.com/pit711/espsoup-firmware)** is a fork of ESP-SDR, open source under GPL-3.0
+([release 0.7.1](https://github.com/pit711/espsoup-firmware/releases/tag/v0.7.1) with source). The Android app ships it:
+**Device → Firmware** backs up the board first, flashes and verifies every image. The browser app can install the original ESP-SDR. It adds:
 
 - **gap-free reception** instead of snapshots (burst catcher, packet catcher),
 - the **5.9 GHz extension** up to 5990 MHz (upper 5.8 GHz band, ITS-G5),
@@ -160,8 +160,7 @@ The **ESPsoup firmware** is based on ESP-SDR and will also be open source under 
 
 ## Coming next
 
-- **ESPsoup firmware** release (open source, GPL-3.0).
-- **Android app (APK)** and **Windows app** — coming soon. Today ESPsoup runs as a web app in Chrome / Edge at [app.espsoup.com](https://app.espsoup.com/) (0.12.2).
+- **Windows app** — coming soon. Android: [beta APK](https://github.com/pit711/ESPsoup/releases/latest); browser: [app.espsoup.com](https://app.espsoup.com/).
 - **Dual TV / diversity** with two boards — experimental, tested on the same channel so far.
 - Better colour in the TV picture.
 - Decoding BLE Long Range and DJI DroneID, surer identification of RC links.
@@ -181,7 +180,7 @@ Product photos come from Amazon.</sub>
 
 Also needed:
 - A USB-C data cable — plug into the board's **native USB** port, not the UART bridge port (CH340 etc.), which is too slow. On Android, a USB-OTG cable or adapter that carries data.
-- The ESP-SDR firmware (free, see [Firmware](#firmware)) — or the ESPsoup firmware once it is released.
+- The ESPsoup firmware (built into the Android app) or the original ESP-SDR firmware — see [Firmware](#firmware).
 - On the PC: Chrome, Edge or another Chromium browser (Web Serial).
 
 ## Support
@@ -191,11 +190,24 @@ ESPsoup is a hobby project. If you like it, a small tip pays for test boards, an
 - ☕ **Ko-fi:** https://ko-fi.com/711it
 - 💸 **PayPal:** https://paypal.me/711IT
 
+## Credits
+
+ESPsoup stands on the shoulders of these projects — thank you!
+
+- **[ESPARGOS ESP-SDR](https://github.com/ESPARGOS/esp-sdr)** (GPL-3.0-or-later) — the I/Q receiver firmware for ESP32 chips that everything here builds on.
+  The ESPsoup firmware is a fork of it; its hardware DC calibration is ported from ESP-SDR's ESP32-S31 streaming code.
+- **[C5VRX](https://github.com/konradit/C5VRX)** by konradit (GPL-3.0-only) — the idea of the gap-free capture path
+  (modem diagnostic bus → GPIO loopback → PARLIO → circular DMA) and a tuning experiment (`phy_set_freq`). ESPsoup's implementation is
+  independent; no C5VRX code was copied (see the firmware's NOTICE).
+- **[FutureSDR](https://github.com/FutureSDR/FutureSDR)** (Apache-2.0) — the 802.11a/g/p OFDM receiver in the app is ported from its WLAN example.
+- Formats and tables from **bthome-ble**, **xiaomi-ble**, **ble_monitor**, **ruuvitag-sensor**, **AirGuard** (SEEMOO / TU Darmstadt),
+  **OpenThread**, **zigbee-herdsman**, **classg**, **ESP-NOW** and others — full list with licences in [THIRD_PARTY.md](THIRD_PARTY.md).
+
 ## Status
 
-Preview. The web app at [app.espsoup.com](https://app.espsoup.com/) is free to use (0.12.2); the Android and Windows apps are not public yet.
-A license for the ESPsoup app has not been chosen yet. The firmware side is GPL-3.0: ESP-SDR by ESPARGOS is GPL-3.0,
-and the ESPsoup firmware, being based on it, will be published under GPL-3.0 as well.
+Public beta. The web app at [app.espsoup.com](https://app.espsoup.com/) and the Android beta are free to use.
+A license for the ESPsoup app itself has not been chosen yet. The firmware is GPL-3.0: ESP-SDR by ESPARGOS is GPL-3.0,
+and the ESPsoup firmware based on it is published under GPL-3.0 with full source.
 
 ESPsoup only receives. Rules on receiving radio signals and on what you may do with the information differ between countries — use it responsibly.
 ESPsoup is an independent project. It is not affiliated with Espressif Systems or with the ESPARGOS / ESP-SDR project. ESP32 is a trademark of Espressif Systems.
