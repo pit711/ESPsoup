@@ -6,7 +6,7 @@
 <p align="center"><b>Scoop signals from the frequency soup.</b><br>
 A receive-only radio scanner app for the ESP32-C5 — Android, Windows and the browser.</p>
 
-<p align="center"><i>🍲 Public beta 0.1 (app 0.12.7) · <a href="https://github.com/pit711/ESPsoup/releases/latest">Android APK</a> · <a href="https://app.espsoup.com/">web app</a> · Windows app coming soon.</i></p>
+<p align="center"><i>🍲 Public beta 0.2 (app 0.12.9) · <a href="https://github.com/pit711/ESPsoup/releases/latest">Android APK</a> · <a href="https://app.espsoup.com/">web app</a> · Windows app coming soon.</i></p>
 
 <p align="center">
   <a href="https://app.espsoup.com/"><img src="https://img.shields.io/badge/web%20app-app.espsoup.com-e8590c" alt="Web app"></a>
@@ -116,6 +116,7 @@ where there was nothing on air to test with (video, RC links, ITS-G5), with an A
 | ✅ | Live spectrum, waterfall, frequency entry | 2.13–2.73 · 4.79–5.99 GHz | Up to 80 MHz wide; unreachable frequencies are refused with the reason |
 | ✅ | Panorama live, own start/stop | any receivable range | About 15 sweeps/s over 2.4 GHz; gaps are skipped |
 | ✅ | Find (hot/cold) with GPS heatmap | any receivable frequency | Usable over about 25–30 dB; the heatmap stays on your device |
+| ✅ | Find locks on a Bluetooth device by its address or payload ID | 2402 · 2426 · 2480 MHz | Tracker ID, iBeacon, Eddystone, Auracast; follows a rotating private address; about 13 readings/s |
 | ✅ | Gap-free reception, burst catcher | same ranges | |
 | | **Bluetooth** | | |
 | ✅ | BLE advertising: names, sensors (BTHome, Xiaomi, Govee, Ruuvi), iBeacon, Eddystone | 2402 · 2426 · 2480 MHz | |
