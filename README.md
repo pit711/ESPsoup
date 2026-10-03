@@ -157,7 +157,6 @@ flashes and verifies every image. Compared with ESP-SDR it adds:
 ## Coming next
 
 - **Windows app** — coming soon. Android: [beta APK](https://github.com/pit711/ESPsoup/releases/latest); browser: [app.espsoup.com](https://app.espsoup.com/).
-- **Dual TV / diversity** with two boards — experimental, tested on the same channel so far.
 - Better colour in the TV picture.
 - Decoding BLE Long Range and DJI DroneID, surer identification of RC links.
 
@@ -175,7 +174,7 @@ Any **ESP32-C5** board works — it is the only ESP32 with the 5 GHz radio ESPso
 Product photos come from Amazon.</sub>
 
 **Multi-TV:** one board shows one analog channel at a time, so it's one board per channel — 8 boards for a whole band (e.g. Raceband R1–R8).
-Tested with 2 boards, 3 are in testing, more not yet. Kit calculator (boards, antennas, cables, USB hub): https://espsoup.com/#multi-tv
+Tested with 8 boards on one StarTech ST4300USB3V2-UE hub. Kit calculator (boards, antennas, cables, USB hub): https://espsoup.com/#multi-tv
 
 Also needed:
 - A USB-C data cable — plug into the board's **native USB** port, not the UART bridge port (CH340 etc.), which is too slow. On Android, a USB-OTG cable or adapter that carries data.
