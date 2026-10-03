@@ -6,7 +6,7 @@
 <p align="center"><b>Scoop signals from the frequency soup.</b><br>
 A receive-only radio scanner app for the ESP32-C5 — Android, Windows and the browser.</p>
 
-<p align="center"><i>🍲 Public beta 0.1 (app 0.12.6) · <a href="https://github.com/pit711/ESPsoup/releases/latest">Android APK</a> · <a href="https://app.espsoup.com/">web app</a> · Windows app coming soon.</i></p>
+<p align="center"><i>🍲 Public beta 0.1 (app 0.12.7) · <a href="https://github.com/pit711/ESPsoup/releases/latest">Android APK</a> · <a href="https://app.espsoup.com/">web app</a> · Windows app coming soon.</i></p>
 
 <p align="center">
   <a href="https://app.espsoup.com/"><img src="https://img.shields.io/badge/web%20app-app.espsoup.com-e8590c" alt="Web app"></a>
@@ -21,6 +21,9 @@ The air around you is a soup of radio signals. ESPsoup turns a cheap **ESP32-C5*
 into a pocket spectrum scanner for the **2.4 GHz and 5 GHz bands**. It shows what's cooking and scoops out whatever it can decode —
 Bluetooth, Wi-Fi, Zigbee, Thread, drones, mobile cells, cars (ITS-G5) and live analog FPV video on its own little TV.
 Everything is decoded locally on your device, and ESPsoup never transmits.
+
+**23 languages:** English, Deutsch, Українська, Български, Čeština, Ελληνικά, Español, Français, हिन्दी, Hrvatski, Magyar, Bahasa Indonesia,
+Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Română, Svenska, Türkçe, Tiếng Việt, 简体中文 — picked from the phone's or browser's language, or under Device → Language.
 
 ## Four tabs, two or three taps
 
@@ -85,6 +88,17 @@ channel ◀ ▶, seek, an auto cycle with adjustable interval and *stop on a pic
 **Tested with a lab signal generator:** 52 of 52 receivable channels gave a picture, about **25 frames/s** and **~7,900 lines/s**.
 The ESP32 demodulates the video itself (ESPsoup firmware 0.7.1), in black and white or with rough colour (PAL and NTSC).
 The 1.2/1.3 GHz FPV band can't be received by the ESP32-C5, and digital systems (DJI, HDZero, Walksnail) are only recognised, without a picture.
+
+### Recording
+
+**● Record** saves the picture as a WebM video (plays in VLC, browsers and most players): channel, frequency, norm, SNR and time
+burned in, the original picture also in red night mode, long recordings split into 10-minute files. **⟲ Last 30 s** saves the
+last 30 seconds from memory — after the drone has already flown by. With several boards, *All pictures in one video* records the
+whole Multi-TV grid.
+
+<img src="assets/screenshots/tv-recording-multi.png" width="760" alt="Frame of a Multi-TV recording: left picture snow on AV2 2432 MHz, right picture the ESPsoup test picture on 2462 MHz, with burned-in channel, frequency, SNR and time">
+
+*Frame of a two-board recording: left 2432 MHz (no sender), right 2462 MHz test picture, with the burned-in info line.*
 
 <sub>Phone screenshots from an Android phone with an ESP32-C5 on USB-OTG. Test pictures came from an ADALM-PLUTO signal generator;
 addresses of real neighbours are masked, and no map or heatmap of a real location is shown.</sub>
