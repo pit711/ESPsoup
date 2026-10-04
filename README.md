@@ -100,13 +100,12 @@ whole Multi-TV grid.
 
 *Frame of a two-board recording: left 2432 MHz (no sender), right 2462 MHz test picture, with the burned-in info line.*
 
-<sub>Phone screenshots from an Android phone with an ESP32-C5 on USB-OTG. Test pictures came from an ADALM-PLUTO signal generator;
-addresses of real neighbours are masked, and no map or heatmap of a real location is shown.</sub>
+<sub>Phone screenshots from an Android phone with an ESP32-C5 on USB-OTG. Addresses of real neighbours are masked, and no map or heatmap of a real location is shown.</sub>
 
 ## What works, what partly works, what doesn't
 
-The ESP32-C5 is a Wi-Fi chip, not a lab SDR. This is what ESPsoup really does with it — tested on real air and,
-where there was nothing on air to test with (video, RC links, ITS-G5), with an ADALM-PLUTO signal generator (October 2026).
+The ESP32-C5 is a Wi-Fi chip, not a lab SDR. This is what ESPsoup really does with it — tested on real air and
+with recorded signals (October 2026).
 
 ✅ works · ◐ partly (recognised, but not fully decoded or not reliable yet) · ❌ not possible
 
@@ -118,34 +117,43 @@ where there was nothing on air to test with (video, RC links, ITS-G5), with an A
 | ✅ | Find (hot/cold) with GPS heatmap | any receivable frequency | Usable over about 25–30 dB; the heatmap stays on your device |
 | ✅ | Find locks on a Bluetooth device by its address or payload ID | 2402 · 2426 · 2480 MHz | Tracker ID, iBeacon, Eddystone, Auracast; follows a rotating private address; about 13 readings/s |
 | ✅ | Gap-free reception, burst catcher | same ranges | |
+| ✅ | Alarm tool: alerts for new signals, watch and ignore lists, critical alarms | all | On Android also in the background and with the screen off |
 | | **Bluetooth** | | |
 | ✅ | BLE advertising: names, sensors (BTHome, Xiaomi, Govee, Ruuvi), iBeacon, Eddystone | 2402 · 2426 · 2480 MHz | |
 | ✅ | AirTag and tracker warning | 2.4 GHz | AirTag, SmartTag, Tile, Google trackers — warns if one keeps showing up around you |
 | ✅ | BLE 2M and extended advertising | 2.4 GHz | |
 | ✅ | Bluetooth packet catcher, 60–120 packets/s | 2.4 GHz | Demodulated on the chip |
 | ◐ | BLE Coded (Long Range) | 2.4 GHz | Seen in the spectrum, not decoded yet |
-| ◐ | Bluetooth Classic | 2.4 GHz | Recognised by its hopping pattern, not decoded |
+| ◐ | Bluetooth Classic | 2.4 GHz | Device address part (LAP) from the access code |
+| ◐ | AirPods battery and case, Apple Nearby / Handoff / AirDrop / HomeKit, Bluetooth Mesh, Windows Swift Pair | 2402 · 2426 · 2480 MHz | |
 | | **Wi-Fi and cars** | | |
 | ✅ | Wi-Fi 802.11b/g/a (incl. 5 GHz OFDM): network names from beacons | 2.4 · 5 GHz | Including the channels above 5.75 GHz |
 | ✅ | ESP-NOW, searching phones (anonymous count), deauth alarm | 2.4 GHz | |
 | ✅ | Wi-Fi channel occupancy | 2.4 · 5 GHz | Now and over 24 hours |
+| ◐ | Wi-Fi details: security, Wi-Fi 6/7, WPS, Apple AWDL, Wi-Fi Direct, OpenIPC / wfb-ng FPV | 2.4 · 5 GHz | |
 | ✅ | ITS-G5 / 802.11p (car-to-car V2X) | 5.855–5.925 GHz | |
 | | **Smart home and sensors** | | |
 | ✅ | Zigbee, Zigbee Green Power, Thread (802.15.4) | 2405–2480 MHz | |
 | ✅ | nRF24, Hoymiles solar inverters | 2.4 GHz | |
+| ◐ | MiLight remotes, wireless mice and keyboards (ESB 2 Mbit/s) | 2.4 GHz | Keystrokes stay encrypted |
 | ✅ | ANT+ fitness sensors | 2457 MHz | |
 | ✅ | Microwave oven | ≈ 2.45 GHz | Recognised while it runs |
 | | **Drones and remote controls** | | |
 | ✅ | Drone Remote ID (Bluetooth, Wi-Fi beacon, Wi-Fi NAN) | 2.4 · 5 GHz | Drone and pilot position on the map |
-| ◐ | RC links: ExpressLRS, FLRC, Ghost, Tracer, FrSky, FlySky, DSMX, LoRa 2.4 | 2.4 GHz | Recognised by the classifier; exact link type sometimes unsure; control data not decoded |
-| ◐ | DJI drones (OcuSync, DroneID) | 2.4 · 5.8 GHz | Video link recognised; DroneID not detected over the air yet |
+| ✅ | LoRa 2.4 GHz decoder, ExpressLRS with packet rate | 2.4 GHz | Spreading factor, bandwidth, sync word; ELRS control data stays unreadable |
+| ◐ | RC links: FLRC, Ghost, Tracer, FrSky, FlySky, DSMX | 2.4 GHz | Recognised by the classifier; exact link type sometimes unsure; control data not decoded |
+| ✅ | DJI DroneID (OcuSync 2/3) | 2.4 · 5.8 GHz | Serial number, model, drone and pilot position on the map |
+| ✅ | DJI O4 video link | 2.4 · 5.8 GHz | Recognised by its 30 kHz OFDM signature; DroneID of O4 drones is encrypted |
+| ◐ | Autel drones (SkyLink) | 2.4 · 5.8 GHz | Video and control link, told apart from DJI; encrypted, detect only |
 | | **Video** | | |
 | ✅ | ESPsoup TV: Raceband, Fatshark, Boscam A/B/E, Lowband, 2.4 GHz AV or any frequency | 5362–5945 · 2414–2468 MHz | 52 of 52 channels with a picture, ~25 fps; seek, auto cycle, fullscreen |
 | ◐ | Colour in the TV picture (PAL / NTSC) | same | Rough colour; black and white is the reliable default |
 | ✅ | Analog FPV video and 2.4 GHz wireless cameras, live | 5.36–5.95 · 2.41–2.47 GHz | Demodulated on the ESP32 |
 | ◐ | Digital video: HDZero, Walksnail, OcuSync, DVB-T senders | 2.4 · 5.8 GHz | Recognised, but no picture — digital video is too much for the ESP32 |
 | | **Mobile network and the rest** | | |
-| ◐ | LTE / 5G NR cell identities | bands 1 and 7 (2.11–2.17 · 2.62–2.69 GHz) | Depends on your surroundings; also calibrates the board's crystal |
+| ◐ | LTE / 5G NR cell towers | B1, B7, B38, B40, B41, n1, n7, n38, n40, n41, n79 | Cell identities and TDD frame pattern; depends on your surroundings; also calibrates the board's crystal |
+| ◐ | Phones nearby (LTE / 5G uplink) | band 7 uplink (2.50–2.57 GHz) | Transmitting phones by their uplink bursts; no identities |
+| ◐ | Pulse radar (weather radar, DFS patterns), road-toll beacons (CEN-DSRC) | 5.6 · 5.8 · 2.7 GHz | Pulse width and repetition rate |
 | ✅ | Radar, FMCW, CW and NBFM carriers | 2.4 · 5 GHz | Recognised by their shape; nothing to decode |
 | | **Not possible with the ESP32-C5** | | |
 | ❌ | FM, DAB+, 433/868 MHz sensors, LoRa below 1 GHz, 1.2/1.3 GHz FPV, ADS-B, GPS, DECT, LTE bands 3/8/20 | below 2.1 GHz | The chip can't tune there |
@@ -173,7 +181,7 @@ flashes and verifies every image. Compared with ESP-SDR it adds:
 
 - **Windows app** — coming soon. Android: [beta APK](https://github.com/pit711/ESPsoup/releases/latest); browser: [app.espsoup.com](https://app.espsoup.com/).
 - Better colour in the TV picture.
-- Decoding BLE Long Range and DJI DroneID, surer identification of RC links.
+- Decoding BLE Long Range, surer identification of RC links.
 
 ## What you need
 
