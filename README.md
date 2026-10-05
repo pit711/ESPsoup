@@ -187,11 +187,11 @@ flashes and verifies every image. Compared with ESP-SDR it adds:
 
 Any **ESP32-C5** board works — it is the only ESP32 with the 5 GHz radio ESPsoup needs. Three boards we test with:
 
-| <a href="https://www.amazon.de/dp/B0GXVF2MWX?tag=v2x2map-21"><img src="https://espsoup.com/amzimg/c5-ext" width="170" alt="Waveshare ESP32-C5 board with external antenna connector"></a> | <a href="https://www.amazon.de/dp/B0HCVKT7GX?tag=v2x2map-21"><img src="https://espsoup.com/amzimg/c5-xiao" width="170" alt="Seeed Studio XIAO ESP32-C5"></a> | <a href="https://www.amazon.de/dp/B0G2SFD8ZC?tag=v2x2map-21"><img src="https://espsoup.com/amzimg/c5-pcb" width="170" alt="Waveshare ESP32-C5 board with PCB antenna"></a> |
+| <a href="https://espsoup.com/go/c5-ext"><img src="https://espsoup.com/amzimg/c5-ext" width="170" alt="Waveshare ESP32-C5 board with external antenna connector"></a> | <a href="https://espsoup.com/go/c5-xiao"><img src="https://espsoup.com/amzimg/c5-xiao" width="170" alt="Seeed Studio XIAO ESP32-C5"></a> | <a href="https://espsoup.com/go/c5-pcb"><img src="https://espsoup.com/amzimg/c5-pcb" width="170" alt="Waveshare ESP32-C5 board with PCB antenna"></a> |
 |:---:|:---:|:---:|
 | **Dev board + antenna connector** ⭐ | **Mini · Seeed XIAO ESP32-C5** | **Dev board, PCB antenna** |
 | ESP32-C5-WROOM-1U with U.FL — best reception, room for a better 2.4/5 GHz antenna | thumb-sized, U.FL connector — great as a second board | simplest option, fine for the 2.4/5 GHz recipes |
-| [View on Amazon](https://www.amazon.de/dp/B0GXVF2MWX?tag=v2x2map-21) | [View on Amazon](https://www.amazon.de/dp/B0HCVKT7GX?tag=v2x2map-21) | [View on Amazon](https://www.amazon.de/dp/B0G2SFD8ZC?tag=v2x2map-21) |
+| [View on Amazon](https://espsoup.com/go/c5-ext) | [View on Amazon](https://espsoup.com/go/c5-xiao) | [View on Amazon](https://espsoup.com/go/c5-pcb) |
 
 <sub>Affiliate links (ad). As an Amazon Associate I earn from qualifying purchases — it costs you nothing extra and keeps the soup cooking.
 Product photos come from Amazon.</sub>
