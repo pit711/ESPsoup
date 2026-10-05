@@ -217,6 +217,8 @@ ESPsoup stands on the shoulders of these projects — thank you!
 
 - **[ESPARGOS ESP-SDR](https://github.com/ESPARGOS/esp-sdr)** (GPL-3.0-or-later) — the I/Q receiver firmware for ESP32 chips that everything here builds on.
   The ESPsoup firmware is a fork of it; its hardware DC calibration is ported from ESP-SDR's ESP32-S31 streaming code.
+- **[eSpDR](https://github.com/h0m3us3r/eSpDR)** by h0m3us3r (0BSD) — an ESP32-S3 software-defined radio that streams raw baseband I/Q samples
+  at 80 MS/s with lossless compression and integrity checking. Thanks for the groundwork and for sharing it openly.
 - **[C5VRX](https://github.com/konradit/C5VRX)** by konradit (GPL-3.0-only) — the idea of the gap-free capture path
   (modem diagnostic bus → GPIO loopback → PARLIO → circular DMA) and a tuning experiment (`phy_set_freq`). ESPsoup's implementation is
   independent; no C5VRX code was copied (see the firmware's NOTICE).
