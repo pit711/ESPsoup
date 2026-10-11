@@ -6,7 +6,7 @@
 <p align="center"><b>Scoop signals from the frequency soup.</b><br>
 A receive-only radio scanner app for the ESP32-C5 — Android, Windows and the browser.</p>
 
-<p align="center"><i>🍲 Public beta 0.2 (app 0.12.9) · <a href="https://github.com/pit711/ESPsoup/releases/latest">Android APK</a> · <a href="https://app.espsoup.com/">web app</a> · Windows app coming soon.</i></p>
+<p align="center"><i>🍲 Public beta 0.4 (app 0.12.15) · <a href="https://github.com/pit711/ESPsoup/releases/latest">Android APK</a> · <a href="https://app.espsoup.com/">web app</a> · Windows app coming soon.</i></p>
 
 <p align="center">
   <a href="https://app.espsoup.com/"><img src="https://img.shields.io/badge/web%20app-app.espsoup.com-e8590c" alt="Web app"></a>
@@ -22,6 +22,9 @@ into a pocket spectrum scanner for the **2.4 GHz and 5 GHz bands**. It shows wha
 Bluetooth, Wi-Fi, Zigbee, Thread, drones, mobile cells, cars (ITS-G5) and live analog FPV video on its own little TV.
 Everything is decoded locally on your device, and ESPsoup never transmits.
 
+**New in beta 0.4:** an experimental **60 GHz radar** tool for the Seeed Studio MR60BHA2 kit, **RTL-SDR and PlutoSDR added** (spectrum and waterfall on the desktop),
+a smarter Find, an offline map, diagnostics recording, a mobile-network band picker, vendor names and fewer false finds — see the [release notes](https://github.com/pit711/ESPsoup/releases/latest).
+
 **23 languages:** English, Deutsch, Українська, Български, Čeština, Ελληνικά, Español, Français, हिन्दी, Hrvatski, Magyar, Bahasa Indonesia,
 Italiano, 日本語, 한국어, Nederlands, Polski, Português (Brasil), Română, Svenska, Türkçe, Tiếng Việt, 简体中文 — picked from the phone's or browser's language, or under Device → Language.
 
@@ -31,10 +34,10 @@ The 0.12 interface has four areas. Every function is at most two or three taps a
 
 | Tab | What's in it |
 |---|---|
-| **Scan** | Type a signal type (*ELRS*, *AirTag*, *HDZero* …) and search it in one tap — or tap ingredients and hit **Search ingredients (n)**, or just **Search everything**. Every find has **Find** and ▶. |
-| **Spectrum** | Live spectrum and waterfall. Type a frequency like in SDR software — `2437`, `5.8G`, `2437.5`. Frequencies the chip can't reach are marked, with the reason and the nearest receivable one. |
-| **Tools** | **TV**, Panorama (live, with its own start/stop), Wi-Fi channels (now and over 24 h), Find on any frequency with a GPS heatmap, Burst catcher, Map, Recordings, Identify. |
-| **Device** | Firmware flasher (backup first, every write verified), calibration, second board, notifications, MQTT export, settings. |
+| **Scan** | Type a signal type (*ELRS*, *AirTag*, *HDZero* …) and search it in one tap — or tap ingredients and hit **Search ingredients (n)**, or just **Search everything**. Searches keep running until you stop them. Every find has **Find** and ▶; **Clear finds** (tap twice) empties the list. |
+| **Spectrum** | Live spectrum and waterfall. Type a frequency like in SDR software — `2437`, `5.8G`, `2437.5`. Frequencies the chip can't reach are marked, with the reason and the nearest receivable one. **Mobile networks:** operator uplink / downlink blocks per EU country. On the desktop also an **RTL-SDR or PlutoSDR** as receiver. |
+| **Tools** | **TV**, Panorama (live, with its own start/stop), Wi-Fi channels (now and over 24 h), Find on any frequency with a GPS heatmap, Burst catcher, Map (also offline), Recordings, Identify, diagnostics recording — and the **60 GHz radar** when the MR60BHA2 kit is connected. |
+| **Device** | Firmware flasher (right firmware per chip, backup first, every write verified), calibration, second board, notifications, MQTT export, settings. |
 
 ### Scan
 
@@ -102,6 +105,20 @@ whole Multi-TV grid.
 
 <sub>Phone screenshots from an Android phone with an ESP32-C5 on USB-OTG. Addresses of real neighbours are masked, and no map or heatmap of a real location is shown.</sub>
 
+## 📡 60 GHz radar (experimental)
+
+With the **Seeed Studio MR60BHA2** kit (XIAO ESP32-C6 + HLK-LD6002 60 GHz radar, see [What you need](#what-you-need)) and the
+[ESPsoup radar firmware](https://github.com/pit711/mr60bha2-sdr-firmware), **Tools → 60 GHz radar** shows presence, distance,
+the target's position with a trail, the point cloud, **breathing and heart rate** (for a person sitting still 0.4–1.5 m away),
+live charts for vital signs, distance and phase, a top-down view and detection-zone settings. A small radar overlay can float over
+the spectrum and waterfall. The tool only appears while the radar firmware is connected. It is experimental, and the vital signs
+are not medical measurements. The ESP32-C5 itself can't do this, and the radar module — unlike ESPsoup's receivers — emits 60 GHz, as every radar sensor does.
+
+## 📻 RTL-SDR and PlutoSDR
+
+**RTL-SDR and PlutoSDR added:** in desktop Chrome or Edge, an RTL-SDR or a PlutoSDR can be picked as receiver over WebUSB,
+with live spectrum and waterfall. For now that's all — the decoders still need the ESP32, and external SDRs don't work on Android yet.
+
 ## What works, what partly works, what doesn't
 
 The ESP32-C5 is a Wi-Fi chip, not a lab SDR. This is what ESPsoup really does with it — tested on real air and
@@ -114,7 +131,11 @@ with recorded signals (October 2026).
 | | **Spectrum and tools** | | |
 | ✅ | Live spectrum, waterfall, frequency entry | 2.13–2.73 · 4.79–5.99 GHz | Up to 80 MHz wide; unreachable frequencies are refused with the reason |
 | ✅ | Panorama live, own start/stop | any receivable range | About 15 sweeps/s over 2.4 GHz; gaps are skipped |
-| ✅ | Find (hot/cold) with GPS heatmap | any receivable frequency | Usable over about 25–30 dB; the heatmap stays on your device |
+| ✅ | Find (hot/cold) with GPS heatmap | any receivable frequency | Usable over about 25–30 dB; the heatmap stays on your device. Automatic gain cut close to the sender (10 dB steps, tone hint), "body shadow" bearing, arrow to the estimate, next measuring point, terrain-aware estimate |
+| ✅ | Offline map | – | OpenStreetMap tiles and terrain saved around you, usable without internet |
+| ✅ | Spur rejection in the camera / bug finder and Scan | all | Spur mask per board plus a retune check — fewer false finds |
+| ✅ | Diagnostics recording | – | REC saves events, spectra and SigMF I/Q in one `.tar` for bug reports |
+| ◐ | RTL-SDR and PlutoSDR (WebUSB) | range of the SDR | Desktop Chrome / Edge only; spectrum and waterfall, no decoders yet; not on Android yet |
 | ✅ | Find locks on a Bluetooth device by its address or payload ID | 2402 · 2426 · 2480 MHz | Tracker ID, iBeacon, Eddystone, Auracast; follows a rotating private address; about 13 readings/s |
 | ✅ | Gap-free reception, burst catcher | same ranges | |
 | ✅ | Alarm tool: alerts for new signals, watch and ignore lists, critical alarms | all | On Android also in the background and with the screen off |
@@ -127,7 +148,7 @@ with recorded signals (October 2026).
 | ◐ | Bluetooth Classic | 2.4 GHz | Device address part (LAP) from the access code |
 | ◐ | AirPods battery and case, Apple Nearby / Handoff / AirDrop / HomeKit, Bluetooth Mesh, Windows Swift Pair | 2402 · 2426 · 2480 MHz | |
 | | **Wi-Fi and cars** | | |
-| ✅ | Wi-Fi 802.11b/g/a (incl. 5 GHz OFDM): network names from beacons | 2.4 · 5 GHz | Including the channels above 5.75 GHz |
+| ✅ | Wi-Fi 802.11b/g/a (incl. 5 GHz OFDM): network names from beacons | 2.4 · 5 GHz | Including the channels above 5.75 GHz; vendor names (IEEE) for Wi-Fi and Bluetooth addresses |
 | ✅ | ESP-NOW, searching phones (anonymous count), deauth alarm | 2.4 GHz | |
 | ✅ | Wi-Fi channel occupancy | 2.4 · 5 GHz | Now and over 24 hours |
 | ◐ | Wi-Fi details: security, Wi-Fi 6/7, WPS, Apple AWDL, Wi-Fi Direct, OpenIPC / wfb-ng FPV | 2.4 · 5 GHz | |
@@ -155,6 +176,9 @@ with recorded signals (October 2026).
 | ◐ | Phones nearby (LTE / 5G uplink) | band 7 uplink (2.50–2.57 GHz) | Transmitting phones by their uplink bursts; no identities |
 | ◐ | Pulse radar (weather radar, DFS patterns), road-toll beacons (CEN-DSRC) | 5.6 · 5.8 · 2.7 GHz | Pulse width and repetition rate |
 | ✅ | Radar, FMCW, CW and NBFM carriers | 2.4 · 5 GHz | Recognised by their shape; nothing to decode |
+| ✅ | Mobile networks picker in Spectrum | per EU country | Operator uplink and downlink blocks, one tap to tune |
+| | **60 GHz radar (separate MR60BHA2 kit)** | | |
+| ◐ | Presence, distance, position with trail, point cloud, breathing and heart rate | 60 GHz (HLK-LD6002) | Experimental; needs the MR60BHA2 kit with the radar firmware; vital signs only for a person sitting still 0.4–1.5 m away |
 | | **Not possible with the ESP32-C5** | | |
 | ❌ | FM, DAB+, 433/868 MHz sensors, LoRa below 1 GHz, 1.2/1.3 GHz FPV, ADS-B, GPS, DECT, LTE bands 3/8/20 | below 2.1 GHz | The chip can't tune there |
 | ❌ | 5G n78 (3.5 GHz), C-band | 2.75–4.79 GHz | A gap in the tuning range |
@@ -177,6 +201,10 @@ flashes and verifies every image. Compared with ESP-SDR it adds:
 - the **5.9 GHz extension** up to 5990 MHz (upper 5.8 GHz band, ITS-G5),
 - **video and Bluetooth demodulation on the chip** — that's what makes the live TV at ~25 frames/s possible.
 
+For the 60 GHz radar, the ESP32-C6 on the MR60BHA2 kit gets its own **[ESPsoup radar firmware 0.7.2](https://github.com/pit711/mr60bha2-sdr-firmware/releases/tag/v0.7.2)**
+([source](https://github.com/pit711/mr60bha2-sdr-firmware), GPL-3.0-or-later, a fork of the ESPsoup firmware): receive-only ESP-SDR plus a link to the radar module.
+**Device → Firmware** picks the right firmware per chip — ESP32-C5 → ESPsoup firmware 0.7.1, ESP32-C6 → radar firmware 0.7.2. The ESP32-C5 optimisations don't apply to the C6.
+
 ## Coming next
 
 - **Windows app** — coming soon. Android: [beta APK](https://github.com/pit711/ESPsoup/releases/latest); browser: [app.espsoup.com](https://app.espsoup.com/).
@@ -193,6 +221,14 @@ Any **ESP32-C5** board works — it is the only ESP32 with the 5 GHz radio ESPso
 | ESP32-C5-WROOM-1U with U.FL — best reception, room for a better 2.4/5 GHz antenna | thumb-sized, U.FL connector — great as a second board | simplest option, fine for the 2.4/5 GHz recipes |
 | [View on Amazon](https://espsoup.com/go/c5-ext) | [View on Amazon](https://espsoup.com/go/c5-xiao) | [View on Amazon](https://espsoup.com/go/c5-pcb) |
 
+Optional, only for the experimental 60 GHz radar tool:
+
+| <a href="https://espsoup.com/go/mr60bha2"><img src="https://espsoup.com/amzimg/mr60bha2" width="170" alt="Seeed Studio MR60BHA2 60 GHz mmWave kit"></a> |
+|:---:|
+| **Seeed Studio MR60BHA2 60 GHz mmWave kit** |
+| XIAO ESP32-C6 + HLK-LD6002 radar — not a receiver for the other tools; the ESP32-C5 stays your main board |
+| [View on Amazon](https://espsoup.com/go/mr60bha2) |
+
 <sub>Affiliate links (ad). As an Amazon Associate I earn from qualifying purchases — it costs you nothing extra and keeps the soup cooking.
 Product photos come from Amazon.</sub>
 
@@ -201,8 +237,8 @@ Tested with 8 boards on one StarTech ST4300USB3V2-UE hub. Kit calculator (boards
 
 Also needed:
 - A USB-C data cable — plug into the board's **native USB** port, not the UART bridge port (CH340 etc.), which is too slow. On Android, a USB-OTG cable or adapter that carries data.
-- The ESPsoup firmware 0.7.1 — the app installs it for you, see [Firmware](#firmware).
-- On the PC: Chrome, Edge or another Chromium browser (Web Serial).
+- The ESPsoup firmware 0.7.1 (for the radar kit: the ESPsoup radar firmware 0.7.2) — the app installs it for you, see [Firmware](#firmware).
+- On the PC: Chrome, Edge or another Chromium browser (Web Serial; WebUSB for an RTL-SDR or PlutoSDR).
 
 ## Support
 
@@ -225,12 +261,14 @@ ESPsoup stands on the shoulders of these projects — thank you!
 - **[FutureSDR](https://github.com/FutureSDR/FutureSDR)** (Apache-2.0) — the 802.11a/g/p OFDM receiver in the app is ported from its WLAN example.
 - Formats and tables from **bthome-ble**, **xiaomi-ble**, **ble_monitor**, **ruuvitag-sensor**, **AirGuard** (SEEMOO / TU Darmstadt),
   **OpenThread**, **zigbee-herdsman**, **classg**, **ESP-NOW** and others — full list with licences in [THIRD_PARTY.md](THIRD_PARTY.md).
+- Data: **IEEE OUI** vendor names, **Bluetooth SIG** company IDs, **OpenStreetMap** map tiles, **Mapzen / AWS Terrain Tiles** and mobile band data (details in [THIRD_PARTY.md](THIRD_PARTY.md)).
+- The 60 GHz radar tool works with the **Seeed Studio MR60BHA2** kit and its **Hi-Link HLK-LD6002** radar module.
 
 ## Status
 
 Public beta. The web app at [app.espsoup.com](https://app.espsoup.com/) and the Android beta are free to use.
 A license for the ESPsoup app itself has not been chosen yet. The firmware is GPL-3.0: ESP-SDR by ESPARGOS is GPL-3.0,
-and the ESPsoup firmware based on it is published under GPL-3.0 with full source.
+and the ESPsoup firmware and the ESPsoup radar firmware based on it are published under GPL-3.0-or-later with full source.
 
-ESPsoup only receives. Rules on receiving radio signals and on what you may do with the information differ between countries — use it responsibly.
+ESPsoup only receives (the optional MR60BHA2 radar module emits 60 GHz, as every radar sensor does). Rules on receiving radio signals and on what you may do with the information differ between countries — use it responsibly.
 ESPsoup is an independent project. It is not affiliated with Espressif Systems or with the ESPARGOS / ESP-SDR project. ESP32 is a trademark of Espressif Systems.
